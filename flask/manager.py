@@ -44,3 +44,80 @@ class BaseballManager:
             'balls': self.balls,
             'outs': self.outs
         }
+
+    def adjust_score(self, team: str, score: int):
+        if team == 'home':
+            self.home_score = score
+        else:
+            self.visitor_score = score
+    
+    def strike(self, strikes):
+        self.strikes = strikes
+        if self.strikes >= 3:
+            self.strikeout()
+
+    def strikeout(self):
+        self.out(self.outs + 1)
+        self.reset_count()
+
+    def out(self, outs):
+        self.outs = outs
+        if self.outs >= 3:
+            self.three_outs()
+    
+    def three_outs(self):
+        self.reset_outs()
+        self.reset_count()
+        self.clear_bases()
+        self.advance_inning()
+
+    def clear_bases(self):
+        self.base_1 = False
+        self.base_2 = False
+        self.base_3 = False
+
+    def advance_inning(self):
+        if self.inninig_mode == 'top':
+            self.inninig_mode = 'mid'
+        elif self.inninig_mode == 'bot':
+            self.inninig_mode = 'end'
+    
+    def ball(self, balls):
+        self.balls = balls
+        if self.balls >= 4:
+            self.walk()
+    
+    def walk(self):
+        self.reset_count()
+
+        if not self.base_1:
+            self.base_1 = True
+        else:
+            if not self.base_2:
+                self.base_2 = True
+            else:
+                if not self.base_3:
+                    self.base_3 = True
+                else:
+                    self.walkoff_run()
+    
+    def walkoff_run(self):
+        if self.inning_mode == 'top':
+            self.visitor_score += 1
+        elif self.inninig_mode == ' bot':
+            self.home_score += 1
+    
+    def set_inning(self, inning):
+        self.inning = inning
+        if self.inninig_mode == 'end':
+            self.inninig_mode ='top'
+    
+    def set_inning_mode(self, inning_mode):
+        self.inninig_mode = inning_mode
+    
+    def reset_count(self):
+        self.strikes = 0
+        self.balls = 0
+    
+    def reset_outs(self):
+        self.outs = 0
