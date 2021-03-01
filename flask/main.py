@@ -29,6 +29,12 @@ def scorekeeper():
     if MANAGER:
         return render_template('scorekeeper.html', state=MANAGER.export_game_state())
 
+@app.route('/admin')
+def admin():
+    global MANAGER
+    if MANAGER:
+        return render_template('admin.html', version=VERSION, state=MANAGER.export_game_state())
+
 @socketio.on('event-request')
 def update(data):
     global MANAGER

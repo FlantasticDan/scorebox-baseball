@@ -525,3 +525,41 @@ button.base.on{
     margin: auto;
     max-width: 325px;
 }
+
+#header-chrome{
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto auto 1fr;
+    gap: 1em;
+    padding: 1em;
+    background-color: var(--less-dark-grey);
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+
+#header-chrome #status-indicator{
+    width: 100%;
+    text-align: right;
+}
+
+.dash-contents{
+    padding: 1em;
+}
+
+.dash-contents h4{
+    margin: 0 0 .25em;
+    font-size: 2.25em;
+}
+
+#scorkeeping-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    margin: auto 1em;
+    place-items: center;
+    align-items: center;
+}
+
+#teams-container{
+    width: 100%;
+}

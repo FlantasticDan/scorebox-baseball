@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>ScoreBox Cross Country</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/static/main.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+
+    </head>
+
+    <body>
+
+        <div id="build-tag">
+            {{version}}
+        </div>
+
+        <div id="header-chrome">
+            <img src="/static/img/logo-white.png" height="50px">
+            <h2>{{state.visitor_team}}</h2>
+            <img src="/static/img/baseball_icon_narrow.svg" height="25px">
+            <h2>{{state.home_team}}</h2>
+            <div id="status-indicator">
+                STATUS: <span id="status" class="error">DISCONNECTED</span>
+            </div>
+        </div>
+
+        <div id="scorekeeping-dashboard" class="dash-contents">
+
+            <h4>
+                Scorekeeping
+            </h4>
+            <p>
+                Baseball scorekeeping can also be done on remote devices at /scorekeeper.
+            </p>
+
+            <div id="scorkeeping-container">
+
+                <div id="teams-container">
+                    <div class="team-score color {{state.visitor_color}}">
+                        <div class="team-name" id='visitor'>
+                            {{state.visitor_team}}
+                        </div>
+                        <div class="plus-minus-value">
+                            <button id="visitor-minus" class="btn red icon minus"></button>
+                            <span id='visitor-score'>{{state.visitor_score}}</span>
+                            <button id="visitor-plus" class="btn green icon plus"></button>
+                        </div>
+                    </div>
+            
+                    <div class="team-score color {{state.home_color}}">
+                        <div class="team-name" id='home'>
+                            {{state.home_team}}
+                        </div>
+                        <div class="plus-minus-value">
+                            <button id="home-minus" class="btn red icon minus"></button>
+                            <span id='home-score'>{{state.home_score}}</span>
+                            <button id="home-plus" class="btn green icon plus"></button>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="inning">
+                    <h3>INNING</h3>
+                    <div class="plus-minus-value">
+                        <button id="inning-minus" class="btn red icon minus"></button>
+                        <span id="inning">{{state.inning}}</span>
+                        <button id="inning-plus" class="btn green icon plus"></button>
+                    </div>
+                    <div class="inning-modes">
+                        <button id="inning-top" class="inning-btn">TOP</button>
+                        <button id="inning-mid" class="inning-btn">MID</button>
+                        <button id="inning-bot" class="inning-btn">BOT</button>
+                        <button id="inning-end" class="inning-btn">END</button>
+                    </div>
+                </div>
+        
+                <div class="base-container">
+                    <div class="bases">
+                        <button class="base" id="base-3"></button>
+                        <button class="base" id="base-2"></button>
+                        <button class="base" id="base-1"></button>
+                    </div>
+                    <button class="btn iconed" id="base-reset">
+                        <img src="/static/img/reset.svg">
+                        Clear Bases
+                    </button>
+                </div>
+        
+                <div class="out-count">
+                    <div class="at-bat-container">
+                        <h3>OUTS</h3>
+                        <div class="button-text">
+                            <span id="outs">{{state.outs}}</span>
+                            <button id="out-reset" class="btn icon reset"></button>
+                        </div>
+                        <button id="out-btn" class="btn">Out</button>
+                    </div>
+        
+                    <div class="at-bat-container">
+                        <h3>COUNT</h3>
+                        <div class="button-text">
+                            <div>
+                                <span id="balls">{{state.balls}}</span>
+                                <span>-</span>
+                                <span id="strikes">{{state.strikes}}</span>
+                            </div>
+                            <button id="count-reset" class="btn icon reset"></button>
+                        </div>
+                        <div class="button-text">
+                            <button id="ball-btn" class="btn green">Ball</button>
+                            <button id="strike-btn" class="btn red">Strike</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- <div id="lower-third-dashboard" class="dash-contents">
+            <h3>
+                Lower Third
+            </h3>
+            <p>
+                There are two Lower Third variants: a one liner and a title/subtitle configuation.  
+                The one liner style is automatically used when the subtitle field is left blank.  
+                Be concise in your titles, text will be squeezed to fit if it exceeds the available space.  
+                Submitting a lower third automatically enables visibility if it isn't currently visible.  
+                The clear field does not change visibility.
+            </p>
+
+            <div id="lower-third-settings">
+                <div class="lower-third-preview">
+                    <div class="lower-third-caption">Title</div>
+                    <div class="lower-third-title" id="lower-third-preview-title">Main Title</div>
+                </div>
+
+                <div class="lower-third-preview">
+                    <div class="lower-third-caption">Subtitle</div>
+                    <div class="lower-third-title" id="lower-third-preview-subtitle">Smaller Subtitle</div>
+                </div>
+
+                <div class="toggle-container">
+                    <div class="toggle-prompt">
+                        Lower Third Visible
+                    </div>
+                    <button class="toggle toggled" id="toggle-lower-third-no">No</button>
+                    <button class="toggle" id="toggle-lower-third-yes">Yes</button>
+                </div>
+
+                <div class="lower-third-input">
+                    <label for="lower-third-title-input">Title</label>
+                    <input type="text" id="lower-third-title-input">
+                </div>
+
+                <div class="lower-third-input">
+                    <label for="lower-third-subtitle-input">Subtitle</label>
+                    <input type="text" id="lower-third-subtitle-input">
+                </div>
+
+                <div class="lower-third-buttons">
+                    <button class="btn" id="lower-third-clear">Clear</button>
+                    <button class="btn red" id="lower-third-display">Display</button>
+                </div>
+            </div>
+        </div> -->
+
+        <script src="/static/third-party/socket.io.min.js"></script>
+        <script src="/static/scorekeeper.js"></script>
+        <script src="/static/admin.js"></script>
+    </body>
+
+</html>
