@@ -15,7 +15,7 @@ class BaseballManager:
         self.visitor_score = 0
 
         self.inning = 1
-        self.inninig_mode = 'top'
+        self.inning_mode = 'top'
 
         self.base_1 = False
         self.base_2 = False
@@ -24,8 +24,6 @@ class BaseballManager:
         self.strikes = 0
         self.balls = 0
         self.outs = 0
-
-        print(self.export_game_state())
     
     def export_game_state(self) -> Dict:
         return {
@@ -36,7 +34,7 @@ class BaseballManager:
             'visitor_color': self.visitor_color,
             'visitor_score': self.visitor_score,
             'inning': self.inning,
-            'inning_mode': self.inninig_mode,
+            'inning_mode': self.inning_mode,
             'base_1': self.base_1,
             'base_2': self.base_2,
             'base_3': self.base_3,
@@ -46,12 +44,14 @@ class BaseballManager:
         }
 
     def adjust_score(self, team: str, score: int):
+        if score < 0:
+            score = 0
         if team == 'home':
             self.home_score = score
         else:
             self.visitor_score = score
     
-    def strike(self, strikes):
+    def strike(self, strikes: int):
         self.strikes = strikes
         if self.strikes >= 3:
             self.strikeout()
@@ -60,7 +60,7 @@ class BaseballManager:
         self.out(self.outs + 1)
         self.reset_count()
 
-    def out(self, outs):
+    def out(self, outs: int):
         self.outs = outs
         if self.outs >= 3:
             self.three_outs()
@@ -77,12 +77,12 @@ class BaseballManager:
         self.base_3 = False
 
     def advance_inning(self):
-        if self.inninig_mode == 'top':
-            self.inninig_mode = 'mid'
-        elif self.inninig_mode == 'bot':
-            self.inninig_mode = 'end'
+        if self.inning_mode == 'top':
+            self.inning_mode = 'mid'
+        elif self.inning_mode == 'bot':
+            self.inning_mode = 'end'
     
-    def ball(self, balls):
+    def ball(self, balls: int):
         self.balls = balls
         if self.balls >= 4:
             self.walk()
@@ -104,16 +104,18 @@ class BaseballManager:
     def walkoff_run(self):
         if self.inning_mode == 'top':
             self.visitor_score += 1
-        elif self.inninig_mode == ' bot':
+        elif self.inning_mode == 'bot':
             self.home_score += 1
     
-    def set_inning(self, inning):
+    def set_inning(self, inning: int):
+        if inning < 1:
+            inning = 1
         self.inning = inning
-        if self.inninig_mode == 'end':
-            self.inninig_mode ='top'
+        if self.inning_mode == 'end':
+            self.inning_mode ='top'
     
-    def set_inning_mode(self, inning_mode):
-        self.inninig_mode = inning_mode
+    def set_inning_mode(self, inning_mode: str):
+        self.inning_mode = inning_mode
     
     def reset_count(self):
         self.strikes = 0
@@ -121,3 +123,11 @@ class BaseballManager:
     
     def reset_outs(self):
         self.outs = 0
+    
+    def set_base(self, base: int, state: bool):
+        if base == 1:
+            self.base_1 = state
+        elif base == 2:
+            self.base_2 = state
+        elif base == 3:
+            self.base_3 = state

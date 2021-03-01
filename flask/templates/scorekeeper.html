@@ -23,40 +23,40 @@
             STATUS: <span id="status" class="error">DISCONNECTED</span>
         </div>
 
-        <div class="team-score color blue">
-            <div class="team-name">
-                VISITOR
+        <div class="team-score color {{state.visitor_color}}">
+            <div class="team-name" id='visitor'>
+                {{state.visitor_team}}
             </div>
             <div class="plus-minus-value">
-                <button class="btn red icon minus"></button>
-                <span>20</span>
-                <button class="btn green icon plus"></button>
+                <button id="visitor-minus" class="btn red icon minus"></button>
+                <span id='visitor-score'>{{state.visitor_score}}</span>
+                <button id="visitor-plus" class="btn green icon plus"></button>
             </div>
         </div>
 
-        <div class="team-score color red">
-            <div class="team-name">
-                HOME
+        <div class="team-score color {{state.home_color}}">
+            <div class="team-name" id='home'>
+                {{state.home_team}}
             </div>
             <div class="plus-minus-value">
-                <button class="btn red icon minus"></button>
-                <span>7</span>
-                <button class="btn green icon plus"></button>
+                <button id="home-minus" class="btn red icon minus"></button>
+                <span id='home-score'>{{state.home_score}}</span>
+                <button id="home-plus" class="btn green icon plus"></button>
             </div>
         </div>
 
         <div class="inning">
             <h3>INNING</h3>
             <div class="plus-minus-value">
-                <button class="btn red icon minus"></button>
-                <span>1</span>
-                <button class="btn green icon plus"></button>
+                <button id="inning-minus" class="btn red icon minus"></button>
+                <span id="inning">{{state.inning}}</span>
+                <button id="inning-plus" class="btn green icon plus"></button>
             </div>
             <div class="inning-modes">
-                <button class="inning-btn checked">TOP</button>
-                <button class="inning-btn">MID</button>
-                <button class="inning-btn">BOT</button>
-                <button class="inning-btn">END</button>
+                <button id="inning-top" class="inning-btn">TOP</button>
+                <button id="inning-mid" class="inning-btn">MID</button>
+                <button id="inning-bot" class="inning-btn">BOT</button>
+                <button id="inning-end" class="inning-btn">END</button>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
                 <button class="base" id="base-2"></button>
                 <button class="base" id="base-1"></button>
             </div>
-            <button class="btn iconed">
+            <button class="btn iconed" id="base-reset">
                 <img src="/static/img/reset.svg">
                 Clear Bases
             </button>
@@ -76,25 +76,25 @@
             <div class="at-bat-container">
                 <h3>OUTS</h3>
                 <div class="button-text">
-                    <span id="outs">0</span>
-                    <button class="btn icon reset"></button>
+                    <span id="outs">{{state.outs}}</span>
+                    <button id="out-reset" class="btn icon reset"></button>
                 </div>
-                <button class="btn">Out</button>
+                <button id="out-btn" class="btn">Out</button>
             </div>
 
             <div class="at-bat-container">
                 <h3>COUNT</h3>
                 <div class="button-text">
                     <div>
-                        <span id="balls">0</span>
+                        <span id="balls">{{state.balls}}</span>
                         <span>-</span>
-                        <span id="strikes">0</span>
+                        <span id="strikes">{{state.strikes}}</span>
                     </div>
-                    <button class="btn icon reset"></button>
+                    <button id="count-reset" class="btn icon reset"></button>
                 </div>
                 <div class="button-text">
-                    <button class="btn green">Ball</button>
-                    <button class="btn red">Strike</button>
+                    <button id="ball-btn" class="btn green">Ball</button>
+                    <button id="strike-btn" class="btn red">Strike</button>
                 </div>
             </div>
         </div>

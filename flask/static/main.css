@@ -178,6 +178,7 @@ button.btn, .btn:active, .btn:focus{
     outline: 0px;
     cursor: pointer;
     font-size: 1.2em;
+    transition: background-color 0.5s;
 }
 
 button.btn.big{
@@ -213,9 +214,9 @@ button.btn.red{
 }
 
 button.btn:disabled, button.btn:disabled:hover{
-    color: var(--less-dark-grey);
-    border: 1px solid var(--less-dark-grey);
-    background-color: transparent;
+    color: var(---dark-grey);
+    /* border: 1px solid var(--less-dark-grey); */
+    background-color: var(--less-dark-grey);
     cursor: not-allowed;
 }
 
@@ -372,6 +373,8 @@ button.toggle.toggled{
     gap: 0.5em;
     margin: auto;
     max-width: 6em;
+    padding: 0 0.5em;
+    background-color: var(--dark-grey);
 }
 
 .plus-minus-value span{
@@ -453,6 +456,11 @@ button.base{
     height: 5em;
     transition: background-color 0.5s, border-color 0.5s;
     cursor: pointer;
+}
+
+button.base:disabled{
+    border-color: var(--less-dark-grey);
+    background-color: var(--less-dark-grey);
 }
 
 button.base.on{
