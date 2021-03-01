@@ -267,3 +267,13 @@ outReset.onclick = () => {socket.emit('out-reset', 'reset')}
 strikeBtn.onclick = () => {socket.emit('strike-update', window.gameState.strikes + 1)}
 ballBtn.onclick = () => {socket.emit('ball-update', window.gameState.balls + 1)}
 countReset.onclick = () => {socket.emit('count-reset', 'reset')}
+
+document.getElementById('status-indicator').onclick = () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+}
