@@ -55,3 +55,26 @@ function validateSetup() {
 
     return valid
 }
+
+function setup(e) {
+    e.preventDefault()
+    if (validateSetup()) {
+        payload = new FormData()
+
+        payload.append('home_team', homeTeam.value)
+        payload.append('visitor_team', visitorTeam.value)
+
+        payload.append('home_color', homeColor)
+        payload.append('visitor_color', visitorColor)
+
+        fetch('/init', {
+            method: 'POST',
+            cache: 'no-cache',
+            body: payload
+        }).then(res => {
+            console.log(res)
+        })
+    }
+}
+
+document.getElementById('event-form').onsubmit = setup
