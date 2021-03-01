@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Scorekeeper | ScoreBox Baseball</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/static/main.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+
+    </head>
+
+    <body>
+
+        <div id="status-indicator">
+            <img src="/static/img/baseball_icon_narrow.svg">
+            STATUS: <span id="status" class="error">DISCONNECTED</span>
+        </div>
+
+        <div class="team-score color blue">
+            <div class="team-name">
+                VISITOR
+            </div>
+            <div class="plus-minus-value">
+                <button class="btn red icon minus"></button>
+                <span>20</span>
+                <button class="btn green icon plus"></button>
+            </div>
+        </div>
+
+        <div class="team-score color red">
+            <div class="team-name">
+                HOME
+            </div>
+            <div class="plus-minus-value">
+                <button class="btn red icon minus"></button>
+                <span>7</span>
+                <button class="btn green icon plus"></button>
+            </div>
+        </div>
+
+        <div class="inning">
+            <h3>INNING</h3>
+            <div class="plus-minus-value">
+                <button class="btn red icon minus"></button>
+                <span>1</span>
+                <button class="btn green icon plus"></button>
+            </div>
+            <div class="inning-modes">
+                <button class="inning-btn checked">TOP</button>
+                <button class="inning-btn">MID</button>
+                <button class="inning-btn">BOT</button>
+                <button class="inning-btn">END</button>
+            </div>
+        </div>
+
+        <div class="base-container">
+            <div class="bases">
+                <button class="base" id="base-3"></button>
+                <button class="base" id="base-2"></button>
+                <button class="base" id="base-1"></button>
+            </div>
+            <button class="btn iconed">
+                <img src="/static/img/reset.svg">
+                Clear Bases
+            </button>
+        </div>
+
+        <div class="out-count">
+            <div class="at-bat-container">
+                <h3>OUTS</h3>
+                <div class="button-text">
+                    <span id="outs">0</span>
+                    <button class="btn icon reset"></button>
+                </div>
+                <button class="btn">Out</button>
+            </div>
+
+            <div class="at-bat-container">
+                <h3>COUNT</h3>
+                <div class="button-text">
+                    <div>
+                        <span id="balls">0</span>
+                        <span>-</span>
+                        <span id="strikes">0</span>
+                    </div>
+                    <button class="btn icon reset"></button>
+                </div>
+                <div class="button-text">
+                    <button class="btn green">Ball</button>
+                    <button class="btn red">Strike</button>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <img src="/static/img/logo-white.png" width="100px" class="logo-opacity">
+
+        <script src="/static/third-party/socket.io.min.js"></script>
+        <script src="/static/scorekeeper.js"></script>
+    </body>
+
+</html>

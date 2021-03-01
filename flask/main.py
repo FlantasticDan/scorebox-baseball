@@ -20,6 +20,10 @@ def init():
     MANAGER = BaseballManager(setup['home_team'], setup['visitor_team'], setup['home_color'], setup['visitor_color'])
     return 'OK'
 
+@app.route('/scorekeeper')
+def scorekeeper():
+    return render_template('scorekeeper.html')
+
 @app.route('/favicon.ico')
 def favicon():
     return app.send_static_file('icons/favicon.ico')
