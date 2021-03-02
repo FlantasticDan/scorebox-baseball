@@ -67,12 +67,15 @@ function setup(e) {
         payload.append('home_color', homeColor)
         payload.append('visitor_color', visitorColor)
 
-        fetch('/init', {
+        let u = new URL(window.location.href)
+        let key = u.searchParams.get('key') 
+
+        fetch(`/init?key=${key}`, {
             method: 'POST',
             cache: 'no-cache',
             body: payload
         }).then(res => {
-            console.log(res)
+            window.location.href = `/admin?key=${key}`
         })
     }
 }

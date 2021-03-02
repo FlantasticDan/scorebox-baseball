@@ -1,0 +1,42 @@
+{
+  "name": "scorebox-baseball",
+  "version": "0.1.0",
+  "description": "Scorekeeping and broadcast overlay system for baseball games.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "repository": "git+https://github.com/FlantasticDan/scorebox-baseball.git",
+  "author": "Daniel Flanagan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FlantasticDan/scorebox-baseball/issues"
+  },
+  "homepage": "https://github.com/FlantasticDan/scorebox-baseball#readme",
+  "devDependencies": {
+    "electron": "^12.0.0",
+    "electron-builder": "^22.10.5"
+  },
+  "dependencies": {
+    "electron-fetch": "^1.7.3",
+    "hazardous": "^0.3.0",
+    "randomstring": "^1.1.5"
+  },
+  "build": {
+    "appId": "com.scorebox.baseball",
+    "productName": "ScoreBox Baseball",
+    "asar": true,
+    "asarUnpack": [
+      "bundles/**/*"
+    ],
+    "files": [
+      "bundles/**/*",
+      "main.js"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "icon.ico"
+    }
+  }
+}

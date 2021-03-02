@@ -1,28 +1,47 @@
+import os
+import subprocess
+
 from flask import Flask, request, render_template
 from flask.globals import g
 from flask_socketio import SocketIO, emit
 
 from manager import BaseballManager
+import bundle
 
 VERSION = 'v.0.1 (03022021)'
 
 MANAGER = None # type: BaseballManager
+
+LOCALKEY = 'debug'
+OVERLAY_PATH = None
+OVERLAY_PROCESS = None
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 @app.route('/setup')
 def setup():
-    return render_template('setup.html', version=VERSION)
+    global LOCALKEY
+    if request.args['key'] == LOCALKEY:
+        return render_template('setup.html', version=VERSION)
+    else:
+        return
 
 @app.route('/init', methods=['POST'])
 def init():
     setup = request.form
     global MANAGER
-    MANAGER = BaseballManager(setup['home_team'], setup['visitor_team'], setup['home_color'], setup['visitor_color'])
-    socketio.emit('event-reset', MANAGER.export_game_state(), broadcast=True)
-    MANAGER.update_overlay()
-    return 'OK'
+    global OVERLAY_PATH
+    global OVERLAY_PROCESS
+    global LOCALKEY
+    if request.args['key'] == LOCALKEY:
+        MANAGER = BaseballManager(setup['home_team'], setup['visitor_team'], setup['home_color'], setup['visitor_color'])
+        OVERLAY_PROCESS = subprocess.Popen([OVERLAY_PATH, '-monitor', '2', '-screen-fullscreen', '1'])
+        socketio.emit('event-reset', MANAGER.export_game_state(), broadcast=True)
+        MANAGER.update_overlay()
+        return 'OK'
+    else:
+        return
 
 @app.route('/scorekeeper')
 def scorekeeper():
@@ -33,8 +52,11 @@ def scorekeeper():
 @app.route('/admin')
 def admin():
     global MANAGER
-    if MANAGER:
+    global LOCALKEY
+    if request.args['key'] == LOCALKEY and MANAGER:
         return render_template('admin.html', version=VERSION, state=MANAGER.export_game_state())
+    else:
+        return
 
 @socketio.on('event-request')
 def update(data):
@@ -127,5 +149,15 @@ def count_reset(data):
 def favicon():
     return app.send_static_file('icons/favicon.ico')
 
+@app.route('/terminate')
+def terminate():
+    global OVERLAY_PROCESS
+    global LOCALKEY
+    if request.args['key'] == LOCALKEY:
+        if OVERLAY_PROCESS:
+            OVERLAY_PROCESS.kill()
+        os.system("taskkill /F /PID " + str(os.getpid()))
+
 if __name__ == '__main__':
-    socketio.run(app, port=5000)
+    LOCALKEY, port, OVERLAY_PATH = bundle.setup(app)
+    socketio.run(app, port=port)

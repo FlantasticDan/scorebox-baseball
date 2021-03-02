@@ -9,6 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "flask/main.py",
+            "args": ["test", "5000", "${workspaceFolder}\\electron\\bundles\\unity\\ScoreBox Baseball Overlay.exe"],
             "console": "integratedTerminal"
         }
     ]
