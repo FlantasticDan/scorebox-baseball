@@ -37,6 +37,9 @@
     "win": {
       "target": "portable",
       "icon": "icon.ico"
+    },
+    "portable": {
+      "splashImage": "splash.bmp"
     }
   }
 }
