@@ -1,6 +1,10 @@
 '''ScoreBox Baseball Manager'''
+import json
+from threading import Thread
 
 from typing import Dict
+
+import websock
 
 
 class BaseballManager:
@@ -24,6 +28,9 @@ class BaseballManager:
         self.strikes = 0
         self.balls = 0
         self.outs = 0
+
+        # Overlay Server
+        self.overlay = Overlay(self)
     
     def export_game_state(self) -> Dict:
         return {
@@ -131,3 +138,32 @@ class BaseballManager:
             self.base_2 = state
         elif base == 3:
             self.base_3 = state
+    
+    def update_overlay(self):
+        game_state = self.export_game_state()
+        game_state.update({'mode': 'game_state'})
+        self.overlay.emit(game_state)
+
+class Overlay:
+
+    def __init__(self, manager: BaseballManager) -> None:
+        self.manager = manager
+        self.server = websock.WebSocketServer('127.0.0.1', port=5500, on_connection_open=self.connection_handler)
+
+        self.thread = Thread(target=self.runner)
+        self.thread.start()
+
+    def connection_handler(self, client) -> None:
+        game_state = self.manager.export_game_state()
+        game_state.update({'mode': 'game_state'})
+        self.emit(game_state)
+
+    def push(self, payload):
+        self.server.send_all(None, str(payload))
+    
+    def emit(self, payload: Dict) -> None:
+        '''Emit dictionary payload to overlay as JSON.'''
+        self.push(json.dumps(payload))
+    
+    def runner(self) -> None:
+        self.server.serve_forever()

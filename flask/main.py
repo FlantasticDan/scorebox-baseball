@@ -21,6 +21,7 @@ def init():
     global MANAGER
     MANAGER = BaseballManager(setup['home_team'], setup['visitor_team'], setup['home_color'], setup['visitor_color'])
     socketio.emit('event-reset', MANAGER.export_game_state(), broadcast=True)
+    MANAGER.update_overlay()
     return 'OK'
 
 @app.route('/scorekeeper')
@@ -46,6 +47,7 @@ def score_change(json):
     global MANAGER
     if MANAGER:
         MANAGER.adjust_score(json['team'], json['score'])
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('inning-mode-update')
@@ -53,6 +55,7 @@ def inning_mode_change(data):
     global MANAGER
     if MANAGER:
         MANAGER.set_inning_mode(data)
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('inning-update')
@@ -60,6 +63,7 @@ def inning_change(data):
     global MANAGER
     if MANAGER:
         MANAGER.set_inning(data)
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('base-update')
@@ -67,6 +71,7 @@ def base_change(json):
     global MANAGER
     if MANAGER:
         MANAGER.set_base(json['base'], json['state'])
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('base-reset')
@@ -74,6 +79,7 @@ def base_reset(data):
     global MANAGER
     if MANAGER:
         MANAGER.clear_bases()
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('out-update')
@@ -81,6 +87,7 @@ def out_change(data):
     global MANAGER
     if MANAGER:
         MANAGER.out(data)
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('out-reset')
@@ -88,6 +95,7 @@ def out_reset(data):
     global MANAGER
     if MANAGER:
         MANAGER.reset_outs()
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('strike-update')
@@ -95,6 +103,7 @@ def strike_change(data):
     global MANAGER
     if MANAGER:
         MANAGER.strike(data)
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('ball-update')
@@ -102,6 +111,7 @@ def ball_change(data):
     global MANAGER
     if MANAGER:
         MANAGER.ball(data)
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 @socketio.on('count-reset')
@@ -109,6 +119,7 @@ def count_reset(data):
     global MANAGER
     if MANAGER:
         MANAGER.reset_count()
+        MANAGER.update_overlay()
         return emit('event-reset', MANAGER.export_game_state(), broadcast=True)
 
 

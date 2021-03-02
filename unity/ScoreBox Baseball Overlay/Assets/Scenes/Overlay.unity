@@ -665,6 +665,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1075678518}
     m_Modifications:
+    - target: {fileID: 2373617859389626905, guid: 237d557a341e42542af9f635615bf6df, type: 3}
+      propertyPath: team
+      value: home
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373617859389626905, guid: 237d557a341e42542af9f635615bf6df, type: 3}
+      propertyPath: colors
+      value: 
+      objectReference: {fileID: 5354437}
+    - target: {fileID: 2373617859389626905, guid: 237d557a341e42542af9f635615bf6df, type: 3}
+      propertyPath: socket
+      value: 
+      objectReference: {fileID: 5354436}
     - target: {fileID: 2373617859389626908, guid: 237d557a341e42542af9f635615bf6df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -751,7 +763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2373617859389626909, guid: 237d557a341e42542af9f635615bf6df, type: 3}
       propertyPath: m_Name
-      value: Team BG (1)
+      value: Home
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237d557a341e42542af9f635615bf6df, type: 3}
@@ -990,6 +1002,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1075678518}
     m_Modifications:
     - target: {fileID: 2373617859389626905, guid: 237d557a341e42542af9f635615bf6df, type: 3}
+      propertyPath: team
+      value: visitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373617859389626905, guid: 237d557a341e42542af9f635615bf6df, type: 3}
       propertyPath: colors
       value: 
       objectReference: {fileID: 5354437}
@@ -1083,7 +1099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2373617859389626909, guid: 237d557a341e42542af9f635615bf6df, type: 3}
       propertyPath: m_Name
-      value: Team BG
+      value: Visitor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237d557a341e42542af9f635615bf6df, type: 3}
