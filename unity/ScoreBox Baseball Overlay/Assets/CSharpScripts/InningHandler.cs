@@ -10,6 +10,8 @@ public class InningHandler : MonoBehaviour
     public TextMeshProUGUI inning;
     public Image topArrow;
     public Image botArrow;
+    public GameObject atBatContainer;
+    public TextMeshProUGUI inningStatus;
     private Dictionary<string, string> gameState;
     // Start is called before the first frame update
     void Start()
@@ -23,17 +25,21 @@ public class InningHandler : MonoBehaviour
         if (gameState["inning_mode"] == "top") {
             topArrow.gameObject.SetActive(true);
             botArrow.gameObject.SetActive(false);
+            atBatContainer.SetActive(true);
         }
         else {
             topArrow.gameObject.SetActive(false);
             if (gameState["inning_mode"] == "bot") {
                 botArrow.gameObject.SetActive(true);
+                atBatContainer.SetActive(true);
             }
             else {
                 botArrow.gameObject.SetActive(false);
+                atBatContainer.SetActive(false);
             }
         }
 
         inning.text = gameState["inning"];
+        inningStatus.text = gameState["inning_status"];
     }
 }

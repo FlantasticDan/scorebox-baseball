@@ -6,6 +6,8 @@ from typing import Dict
 
 import websock
 
+from util import get_ordinal
+
 
 class BaseballManager:
     def __init__(self, home_team, visitor_team, home_color, visitor_color) -> None:
@@ -42,6 +44,7 @@ class BaseballManager:
             'visitor_score': self.visitor_score,
             'inning': self.inning,
             'inning_mode': self.inning_mode,
+            'inning_status': self.get_inning_status(),
             'base_1': self.base_1,
             'base_2': self.base_2,
             'base_3': self.base_3,
@@ -143,6 +146,14 @@ class BaseballManager:
         game_state = self.export_game_state()
         game_state.update({'mode': 'game_state'})
         self.overlay.emit(game_state)
+
+    def get_inning_status(self) -> str:
+        if self.inning_mode == 'mid':
+            return f'MIDDLE {self.inning}{get_ordinal(self.inning)}'
+        elif self.inning_mode == 'end':
+            return f'END {self.inning}{get_ordinal(self.inning)}'
+        else:
+            return ''
 
 class Overlay:
 

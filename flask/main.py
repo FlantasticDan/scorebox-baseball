@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit
 
 from manager import BaseballManager
 
-VERSION = 'v.0.1 (03012021)'
+VERSION = 'v.0.1 (03022021)'
 
 MANAGER = None # type: BaseballManager
 

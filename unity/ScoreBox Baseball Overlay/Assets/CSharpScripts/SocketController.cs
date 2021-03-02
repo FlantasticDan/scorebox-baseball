@@ -49,6 +49,7 @@ public class SocketController : MonoBehaviour
         gameState.Add("visitor_score", "0");
         gameState.Add("inning", "1");
         gameState.Add("inning_mode", "");
+        gameState.Add("inning_status", "");
         gameState.Add("base_1", "False");
         gameState.Add("base_2", "False");
         gameState.Add("base_3", "False");
@@ -67,6 +68,7 @@ public class SocketController : MonoBehaviour
         gameState["visitor_score"] = payload["visitor_score"];
         gameState["inning"] = payload["inning"];
         gameState["inning_mode"] = payload["inning_mode"];
+        gameState["inning_status"] = payload["inning_status"];
         gameState["base_1"] = payload["base_1"];
         gameState["base_2"] = payload["base_2"];
         gameState["base_3"] = payload["base_3"];
